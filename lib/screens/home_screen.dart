@@ -11,8 +11,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   String title = "Flutter fetching data";
-  String content = "";
-  String auteur = "";
+  String name = "";
+  String username = "";
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -26,29 +26,28 @@ class _HomeScreenState extends State<HomeScreen> {
               Padding(
                   padding: const EdgeInsets.all(12.0),
                   child: Text(
-                    content,
+                    'Nom : $name',
                     style: const TextStyle(fontSize: 16),
                   )),
               Padding(
-                padding: const EdgeInsets.only(right: 10.0),
+                padding: const EdgeInsets.all(12.0),
                 child: Align(
-                    alignment: Alignment.bottomRight,
                     child: Text(
-                      auteur,
-                      style: const TextStyle(fontSize: 16),
-                    )),
+                  'Username: $username',
+                  style: const TextStyle(fontSize: 16),
+                )),
               ),
               ElevatedButton(
                 onPressed: () async {
                   setState(() {
                     title = "Data fetching from API";
                   });
-                  var url = Uri.parse(
-                      'https://api.quotable.io/random?tags=technology%2Cfamous-quotes');
+                  var url =
+                      Uri.parse('https://jsonplaceholder.typicode.com/users/5');
                   var response = await http.get(url);
                   var data = convert.jsonDecode(response.body);
-                  content = data['content'];
-                  auteur = data['author'];
+                  name = data['name'];
+                  username = data['username'];
                   setState(() {});
                 },
                 child: const Text("Afficher les donnees"),
